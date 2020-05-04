@@ -17,3 +17,4 @@ jobs:
               git clone https://github.com/le-yo/supercharger.git
               cd supercharger
               git checkout -b superapp_$(git rev-parse --short "$GITHUB_SHA")
+              git push origin superapp_$(git rev-parse --short "$GITHUB_SHA")
