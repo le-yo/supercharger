@@ -13,4 +13,7 @@ jobs:
       runs-on: ubuntu-latest
       steps:
         - name: New branch
-          run: git checkout -b $(git rev-parse --short "$GITHUB_SHA")
+          run: |
+              git clone https://github.com/le-yo/supercharger.git
+              cd supercharger
+              git checkout -b $(git rev-parse --short "$GITHUB_SHA")
