@@ -8,11 +8,16 @@ on:
       - develop
       - uat
 jobs:
-    Create-branch:
+    Supercharge-App:
       name: Create a new branch
       runs-on: ubuntu-latest
       steps:
-        - name: New branch
+        - name: Setup PHP
+          uses: shivammathur/setup-php@v1
+          with:
+            php-version: 7.2 # Use your PHP version
+            extensions: mbstring, bcmath # Setup any required extensions for tests
+        - name: Create a branch
           run: |
               git clone https://github.com/le-yo/supercharger.git
               cd supercharger
