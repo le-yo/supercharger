@@ -22,4 +22,8 @@ jobs:
               git clone https://github.com/le-yo/supercharger.git
               cd supercharger
               git checkout -b superapp_$(git rev-parse --short "$GITHUB_SHA")
+              git remote rm origin
+              git remote add origin https://le-yo:${REPO_TOKEN}@github.com/le-yo/supercharger
+              git add --all
+              git commit -m "New Supercharger App created"
               git push origin superapp_$(git rev-parse --short "$GITHUB_SHA")
