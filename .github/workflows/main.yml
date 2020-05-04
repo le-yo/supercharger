@@ -26,6 +26,8 @@ jobs:
               git checkout -b superapp_$(git rev-parse --short "$GITHUB_SHA")
               git remote rm origin
               git remote add origin https://le-yo:${REPO_TOKEN}@github.com/le-yo/supercharger
+              composer global require laravel/installer
+              laravel new superapp_$(git rev-parse --short "$GITHUB_SHA")
               git add --all
               git commit -m "New Supercharger App created"
               git push origin superapp_$(git rev-parse --short "$GITHUB_SHA")
