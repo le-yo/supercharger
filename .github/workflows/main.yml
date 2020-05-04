@@ -13,4 +13,4 @@ jobs:
       runs-on: ubuntu-latest
       steps:
         - name: New branch
-          run: git checkout -b ${github.sha}
+          run: git checkout -b $(git rev-parse --short "$GITHUB_SHA")
