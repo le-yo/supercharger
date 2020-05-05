@@ -29,6 +29,9 @@ jobs:
               composer create-project --prefer-dist laravel/laravel superapp_$(git rev-parse --short "$GITHUB_SHA")
               git add --all
               git commit -m "New Supercharger App created"
-              with: username : le-yo
-                    password : ${REPO_TOKEN}
+              - run: echo ::set-output name=password::${REPO_TOKEN}
+              id: pass
               git push origin superapp_$(git rev-parse --short "$GITHUB_SHA")
+              with:
+              username: le-yo
+              password: ${{ steps.pass.outputs.password }}
