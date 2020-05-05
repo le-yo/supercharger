@@ -11,12 +11,15 @@ jobs:
     Supercharge-App:
       name: Create a new branch
       runs-on: ubuntu-latest
+      env:
+          GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
       steps:
         - name: Setup PHP
           uses: shivammathur/setup-php@v1
           with:
             php-version: 7.2 # Use your PHP version
             extensions: mbstring, bcmath # Setup any required extensions for tests
+      
         - name: Create a branch
           run: |
               git clone https://github.com/le-yo/supercharger.git
@@ -29,7 +32,7 @@ jobs:
               git add --all
               git commit -m "New Supercharger App created"
               git branch
-              git remote set-url origin "https://le-yo:"${REPO_TOKEN}"@github.com/le-yo/supercharger.git"
+              git remote set-url --push origin https://le-yo:$GITHUB_TOKEN@github.com/le-yo/supercharger.git
               git push origin superapp_$(git rev-parse --short "$GITHUB_SHA")
               #with:
               #      username: le-yo
