@@ -23,12 +23,14 @@ jobs:
               cd supercharger
               git config --global user.email "${EMAIL}"
               git config --global user.name "SuperCharger Bot"
-              git checkout -b superapp_$(git rev-parse --short "$GITHUB_SHA")
-              git remote rm origin
-              git remote add origin https://github.com/le-yo/supercharger
               composer create-project --prefer-dist laravel/laravel superapp_$(git rev-parse --short "$GITHUB_SHA")
+              cd superapp_$(git rev-parse --short "$GITHUB_SHA")
+              git init
               git add --all
               git commit -m "New Supercharger App created"
+              git checkout -b superapp_$(git rev-parse --short "$GITHUB_SHA")
+              git remote add origin https://github.com/le-yo/supercharger
+              git pull origin master
         - name: push new branch
           run: |
               #echo ::set-output name=password::${REPO_TOKEN}
