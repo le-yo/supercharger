@@ -31,9 +31,9 @@ jobs:
               git commit -m "New Supercharger App created"
         - name: push new branch
           run: |
-              echo ::set-output name=password::${REPO_TOKEN}
-              id: pass
+              #echo ::set-output name=password::${REPO_TOKEN}
+              #id: pass
               git push origin superapp_$(git rev-parse --short "$GITHUB_SHA")
               with:
               username: le-yo
-              password: ${{ steps.pass.outputs.password }}
+              password: ${REPO_TOKEN}
