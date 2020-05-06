@@ -13,6 +13,8 @@ jobs:
       runs-on: ubuntu-latest
       env:
           REPO_TOKEN: ${{ secrets.REPOSITORY_TOKEN }}
+          DO_BEARER: ${{ secrets.DO_BEARER }}
+          SERVER_IP: ${{ secrets.SERVER_IP }}
       steps:
         - name: Setup PHP
           uses: shivammathur/setup-php@v1
@@ -34,6 +36,9 @@ jobs:
               git branch
               git remote set-url --push origin https://le-yo:$REPO_TOKEN@github.com/le-yo/supercharger.git
               git push origin superapp_$(git rev-parse --short "$GITHUB_SHA")
+        - name: Create a subdomain
+          run: |
+              curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer $DO_BEARER” -d '{"type":"A","name":"$(git rev-parse --short "$GITHUB_SHA")","data”:”$SERVER_IP”,”priority":null,"port":null,"ttl”:1,”weight":null,"flags":null,"tag":null}' "https://api.digitalocean.com/v2/domains/$DOMAIN/records"
               #with:
               #      username: le-yo
               #      password: ${REPO_TOKEN}
