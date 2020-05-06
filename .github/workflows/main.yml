@@ -15,6 +15,7 @@ jobs:
           REPO_TOKEN: ${{ secrets.REPOSITORY_TOKEN }}
           DO_BEARER: ${{ secrets.DO_BEARER }}
           SERVER_IP: ${{ secrets.SERVER_IP }}
+          DOMAIN: ${{ secrets.DOMAIN }}
       steps:
         - name: Setup PHP
           uses: shivammathur/setup-php@v1
