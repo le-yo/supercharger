@@ -14,7 +14,7 @@ jobs:
       env:
           REPO_TOKEN: ${{ secrets.REPOSITORY_TOKEN }}
           DO_BEARER: ${{ secrets.DO_BEARER }}
-          S_IP: ${{ secrets.S_IP }}
+          ADDRESS: ${{ secrets.ADDRESS }}
           DOMAIN: ${{ secrets.DOMAIN }}
           COMMIT_REF: $(git rev-parse --short "$GITHUB_SHA")
       steps:
@@ -40,7 +40,7 @@ jobs:
               git push origin superapp_$(git rev-parse --short "$GITHUB_SHA")
         - name: Create a subdomain
           run: |
-              curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer $DO_BEARER" -d '{"type":"A","name":"superapp","data":"$S_IP","priority":null,"port":null,"ttl":1,"weight":null,"flags":null,"tag":null}' "https://api.digitalocean.com/v2/domains/$DOMAIN/records"
+              curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer $DO_BEARER" -d '{"type":"A","name":"superapp","data":"$ADDRESS","priority":null,"port":null,"ttl":1,"weight":null,"flags":null,"tag":null}' "https://api.digitalocean.com/v2/domains/$DOMAIN/records"
               #with:
               #      username: le-yo
               #      password: ${REPO_TOKEN}
