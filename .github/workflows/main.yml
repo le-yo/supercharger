@@ -9,7 +9,7 @@ on:
       - uat
 jobs:
     Supercharge-App:
-      name: Create a new branch
+      name: SuperCharger Deployment
       runs-on: ubuntu-latest
       env:
           REPO_TOKEN: ${{ secrets.REPOSITORY_TOKEN }}
@@ -27,7 +27,7 @@ jobs:
 #        - name: Create a branch
 #          run: |
 #              git clone https://github.com/le-yo/supercharger.git
-#              cd supercharger
+#              cd supercharger 
 #              git config --global user.email "${EMAIL}"
 #              git config --global user.name "SuperCharger Bot"
 #              composer create-project --prefer-dist laravel/laravel superapp_$(git rev-parse --short "$GITHUB_SHA")
