@@ -18,12 +18,12 @@ jobs:
           DOMAIN: ${{ secrets.DOMAIN }}
           COMMIT_REF: $(git rev-parse --short "$GITHUB_SHA")
       steps:
-        - name: Setup PHP
-          uses: shivammathur/setup-php@v1
-          with:
-            php-version: 7.2 # Use your PHP version
-            extensions: mbstring, bcmath # Setup any required extensions for tests
-#
+#        - name: Setup PHP
+#          uses: shivammathur/setup-php@v1
+#          with:
+#            php-version: 7.2 # Use your PHP version
+#            extensions: mbstring, bcmath # Setup any required extensions for tests
+##
 #        - name: Create a branch
 #          run: |
 #              git clone https://github.com/le-yo/supercharger.git
