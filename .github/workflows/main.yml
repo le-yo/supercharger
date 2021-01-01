@@ -23,21 +23,21 @@ jobs:
           with:
             php-version: 7.2 # Use your PHP version
             extensions: mbstring, bcmath # Setup any required extensions for tests
-      
-        - name: Create a branch
-          run: |
-              git clone https://github.com/le-yo/supercharger.git
-              cd supercharger
-              git config --global user.email "${EMAIL}"
-              git config --global user.name "SuperCharger Bot"
-              composer create-project --prefer-dist laravel/laravel superapp_$(git rev-parse --short "$GITHUB_SHA")
-              cd superapp_$(git rev-parse --short "$GITHUB_SHA")
-              git checkout -b superapp_$(git rev-parse --short "$GITHUB_SHA")
-              git add --all
-              git commit -m "New Supercharger App created"
-              git branch
-              git remote set-url --push origin https://le-yo:$REPO_TOKEN@github.com/le-yo/supercharger.git
-              git push origin superapp_$(git rev-parse --short "$GITHUB_SHA")
+#      
+#        - name: Create a branch
+#          run: |
+#              git clone https://github.com/le-yo/supercharger.git
+#              cd supercharger
+#              git config --global user.email "${EMAIL}"
+#              git config --global user.name "SuperCharger Bot"
+#              composer create-project --prefer-dist laravel/laravel superapp_$(git rev-parse --short "$GITHUB_SHA")
+#              cd superapp_$(git rev-parse --short "$GITHUB_SHA")
+#              git checkout -b superapp_$(git rev-parse --short "$GITHUB_SHA")
+#              git add --all
+#              git commit -m "New Supercharger App created"
+#              git branch
+#              git remote set-url --push origin https://le-yo:$REPO_TOKEN@github.com/le-yo/supercharger.git
+#              git push origin superapp_$(git rev-parse --short "$GITHUB_SHA")
         - name: Create a subdomain
           run: |
               curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer $DO_BEARER" -d '{"type":"A","name":"$COMMIT_REF","data":"$ADDRESS","priority":null,"port":null,"ttl":1,"weight":null,"flags":null,"tag":null}' "https://api.digitalocean.com/v2/domains/$DOMAIN/records"
