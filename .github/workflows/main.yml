@@ -34,11 +34,11 @@ jobs:
 #              cd superapp_$(git rev-parse --short "$GITHUB_SHA")
 #              git checkout -b superapp_$(git rev-parse --short "$GITHUB_SHA")
 #              git add --all
-#              git commit -m "New Supercharger App created" 
-#              git branch
+#              git commit -m "New Supercharger App created"
+#              git branch 
 #              git remote set-url --push origin https://le-yo:$REPO_TOKEN@github.com/le-yo/supercharger.git
 #              git push origin superapp_$(git rev-parse --short "$GITHUB_SHA")
         - name: Create a subdomain
           run: |
-              curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer $DO_BEARER" -d '{"type":"A","name":"${{ github.sha }}","data":$ADDRESS,"priority":null,"port":null,"ttl":1,"weight":null,"flags":null,"tag":null}' "https://api.digitalocean.com/v2/domains/$DOMAIN/records"
+              curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer $DO_BEARER" -d '{"type":"A","name":"${{ github.sha }}","data":"${ADDRESS}","priority":null,"port":null,"ttl":1,"weight":null,"flags":null,"tag":null}' "https://api.digitalocean.com/v2/domains/$DOMAIN/records"
 
