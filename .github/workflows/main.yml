@@ -46,10 +46,10 @@ jobs:
           with:
             command: |
               cd /var/www/
-              git clone https://le-yo:$REPO_TOKEN@github.com/le-yo/supercharger.git superapp_$(git rev-parse --short "$GITHUB_SHA")
-              cd superapp_$(git rev-parse --short "$GITHUB_SHA")
-              git checkout superapp_$(git rev-parse --short "$GITHUB_SHA")
-              composer install
+              git clone https://le-yo:$REPO_TOKEN@github.com/le-yo/supercharger.git superapp_${{ env.COMMIT_REF }}
+              cd superapp_${{ env.COMMIT_REF }}
+              git checkout superapp_${{ env.COMMIT_REF }}
+              composer install 
               cp .env.example env
             host: ${{ secrets.SERVER_IP }}
             user: root
