@@ -41,12 +41,12 @@ jobs:
 #        - name: Create a subdomain
 #          run: |
 #              curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer $DO_BEARER" -d '{"type":"A","endpoint":"https://api.digitalocean.com/v2/domains/$DOMAIN/records","name":"${{ github.sha }}","data":"${{ env.ADDRESS }}","priority":null,"port":null,"ttl":30,"weight":null,"flags":null,"tag":null}' "https://api.digitalocean.com/v2/domains/${{ env.DOMAIN }}/records"
-        - name: Deploy to Server 
+        - name: Deploy to Server
           uses: fifsky/ssh-action@master
           with:
             command: |
-              cd /var/www/
-              git clone https://le-yo:${{ env.REPO_TOKEN }}@github.com/le-yo/supercharger.git superapp_$COMMIT_REF
+              cd /var/www/ 
+              git clone https://le-yo:${{ env.REPO_TOKEN }}@github.com/le-yo/supercharger.git superapp_${{ env.COMMIT_REF }}
               cd superapp_$COMMIT_REF
               git checkout superapp_$COMMIT_REF
               composer install
