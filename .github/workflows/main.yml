@@ -38,7 +38,7 @@ jobs:
               git branch
               git remote set-url --push origin https://le-yo:$REPO_TOKEN@github.com/le-yo/supercharger.git
               git push origin superapp_$(git rev-parse --short "$GITHUB_SHA")
-#        - name: Create a subdomain
+#        - name: Create a subdomain 
 #          run: |
 #              curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer $DO_BEARER" -d '{"type":"A","endpoint":"https://api.digitalocean.com/v2/domains/$DOMAIN/records","name":"${{ github.sha }}","data":"${{ env.ADDRESS }}","priority":null,"port":null,"ttl":30,"weight":null,"flags":null,"tag":null}' "https://api.digitalocean.com/v2/domains/${{ env.DOMAIN }}/records"
         - name: Deploy to Server
@@ -49,9 +49,9 @@ jobs:
               git clone https://le-yo:$REPO_TOKEN@github.com/le-yo/supercharger.git superapp_${{ env.COMMIT_REF }}
               cd superapp_${{ env.COMMIT_REF }}
               git checkout superapp_${{ env.COMMIT_REF }}
-              composer install 
+              composer install
               cp .env.example env
-            host: ${{ secrets.SERVER_IP }}
+            host: ${{ env.ADDRESS }}
             user: root
             key: ${{ secrets.SSH_PRIVATE_KEY}}
 #"https://webhook.site/55538841-9cc2-47bc-9183-4825ca0fe075"
