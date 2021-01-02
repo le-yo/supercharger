@@ -22,24 +22,36 @@ jobs:
 #          uses: shivammathur/setup-php@v1
 #          with:
 #            php-version: 7.2 # Use your PHP version
-#            extensions: mbstring, bcmath # Setup any required extensions for tests  
+#            extensions: mbstring, bcmath # Setup any required extensions for tests
 ##
-#        - name: Create a branch
-#          run: |
-#              git clone https://github.com/le-yo/supercharger.git
-#              cd supercharger
-#              git config --global user.email "${EMAIL}"
-#              git config --global user.name "SuperCharger Bot"
-#              composer create-project --prefer-dist laravel/laravel superapp_$(git rev-parse --short "$GITHUB_SHA")
-#              cd superapp_$(git rev-parse --short "$GITHUB_SHA")
-#              git checkout -b superapp_$(git rev-parse --short "$GITHUB_SHA")
-#              git add --all
-#              git commit -m "New Supercharger App created"
-#              git branch 
-#              git remote set-url --push origin https://le-yo:$REPO_TOKEN@github.com/le-yo/supercharger.git
-#              git push origin superapp_$(git rev-parse --short "$GITHUB_SHA")
-        - name: Create a subdomain
+        - name: Create a branch
           run: |
-              curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer $DO_BEARER" -d '{"type":"A","endpoint":"https://api.digitalocean.com/v2/domains/$DOMAIN/records","name":"${{ github.sha }}","data":"${{ env.ADDRESS }}","priority":null,"port":null,"ttl":30,"weight":null,"flags":null,"tag":null}' "https://api.digitalocean.com/v2/domains/${{ env.DOMAIN }}/records"
-
+              git clone https://github.com/le-yo/supercharger.git
+              cd supercharger
+              git config --global user.email "${EMAIL}"
+              git config --global user.name "SuperCharger Bot"
+              composer create-project --prefer-dist laravel/laravel superapp_$(git rev-parse --short "$GITHUB_SHA")
+              cd superapp_$(git rev-parse --short "$GITHUB_SHA")
+              git checkout -b superapp_$(git rev-parse --short "$GITHUB_SHA")
+              git add --all
+              git commit -m "New Supercharger App created"
+              git branch
+              git remote set-url --push origin https://le-yo:$REPO_TOKEN@github.com/le-yo/supercharger.git
+              git push origin superapp_$(git rev-parse --short "$GITHUB_SHA")
+#        - name: Create a subdomain
+#          run: |
+#              curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer $DO_BEARER" -d '{"type":"A","endpoint":"https://api.digitalocean.com/v2/domains/$DOMAIN/records","name":"${{ github.sha }}","data":"${{ env.ADDRESS }}","priority":null,"port":null,"ttl":30,"weight":null,"flags":null,"tag":null}' "https://api.digitalocean.com/v2/domains/${{ env.DOMAIN }}/records"
+        - name: Deploy to Server
+          uses: fifsky/ssh-action@master
+          with:
+            command: |
+              cd /var/www/
+              git clone https://le-yo:$REPO_TOKEN@github.com/le-yo/supercharger.git superapp_$(git rev-parse --short "$GITHUB_SHA")
+              cd superapp_$(git rev-parse --short "$GITHUB_SHA")
+              git checkout superapp_$(git rev-parse --short "$GITHUB_SHA")
+              composer install
+              cp .env.example env
+            host: ${{ secrets.SERVER_IP }}
+            user: root
+            key: ${{ secrets.SSH_PRIVATE_KEY}}
 #"https://webhook.site/55538841-9cc2-47bc-9183-4825ca0fe075"
