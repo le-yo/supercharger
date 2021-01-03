@@ -48,7 +48,7 @@ jobs:
               cd /var/www/
               git clone https://le-yo:$REPO_TOKEN@github.com/le-yo/supercharger.git superapp_$COMMIT_REF
               cd superapp_$COMMIT_REF
-              git checkout superapp_${{ COMMIT_REF }}
+              git checkout superapp_"${{ COMMIT_REF }}" 
               composer install
               cp .env.example env
             host: ${{ env.ADDRESS }}
