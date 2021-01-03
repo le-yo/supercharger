@@ -48,10 +48,10 @@ jobs:
               cd /var/www/
               git clone https://le-yo:$REPO_TOKEN@github.com/le-yo/supercharger.git superapp_$COMMIT_REF
               cd superapp_$COMMIT_REF
-              git checkout superapp_$COMMIT_REF
+              git checkout superapp_${{COMMIT_REF}}  
               composer install
               cp .env.example env
             host: ${{ env.ADDRESS }}
             user: root
             key: ${{ secrets.SSH_PRIVATE_KEY}}
-#"https://webhook.site/55538841-9cc2-47bc-9183-4825ca0fe075" 
+#"https://webhook.site/55538841-9cc2-47bc-9183-4825ca0fe075"
